@@ -5,13 +5,6 @@ import { firebase } from '../../firebase/config'
 import styles from './styles';
 
 export default function LoginScreen({navigation}) {
-    
-
-
-
-
-
-
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')

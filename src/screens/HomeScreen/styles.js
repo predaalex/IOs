@@ -18,39 +18,49 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    input: {
-        height: 48,
-        borderRadius: 5,
-        overflow: 'hidden',
-        backgroundColor: 'white',
-        paddingLeft: 16,
-        flex: 1,
-        marginRight: 5
-    },
-    button: {
-        height: 47,
-        borderRadius: 5,
-        backgroundColor: '#788eec',
-        width: 80,
-        alignItems: "center",
-        justifyContent: 'center'
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16
-    },
-    listContainer: {
-        marginTop: 20,
-        padding: 20,
-    },
-    entityContainer: {
-        marginTop: 16,
-        borderBottomColor: '#cccccc',
-        borderBottomWidth: 1,
-        paddingBottom: 16
-    },
-    entityText: {
-        fontSize: 20,
-        color: '#333333'
+    // input: {
+    //     height: 48,
+    //     borderRadius: 5,
+    //     overflow: 'hidden',
+    //     backgroundColor: 'white',
+    //     paddingLeft: 16,
+    //     flex: 1,
+    //     marginRight: 5
+    // },
+    // button: {
+    //     height: 47,
+    //     borderRadius: 5,
+    //     backgroundColor: '#788eec',
+    //     width: 80,
+    //     alignItems: "center",
+    //     justifyContent: 'center'
+    // },
+    // buttonText: {
+    //     color: 'white',
+    //     fontSize: 16
+    // },
+    // listContainer: {
+    //     marginTop: 20,
+    //     padding: 20,
+    // },
+    // entityContainer: {
+    //     marginTop: 16,
+    //     borderBottomColor: '#cccccc',
+    //     borderBottomWidth: 1,
+    //     paddingBottom: 16
+    // },
+    // entityText: {
+    //     fontSize: 20,
+    //     color: '#333333'
+    // },
+    fab: {
+        width: 60,  
+        height: 60,   
+        borderRadius: 30,            
+        backgroundColor: 'blue',                                    
+        position: 'absolute',                                          
+        bottom: 10,                                                    
+        right: 10
     }
+    
 })
