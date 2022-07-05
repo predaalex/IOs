@@ -5,33 +5,37 @@ import axios from 'axios'
 import { Button } from 'react-native'
 import styles from './styles';
 
-export default function ThirdPage({navigation}) {
+export default function FourthPage({navigation}) {
 
-    const ingredient = localStorage.getItem("ingredient")
-    console.log("ingredientul jmk este: " + ingredient);
+    const id = localStorage.getItem("id");
+    console.log("Id-ul bauturii este: " + id);
     
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const fetchData = async () => {
-        const resp = await axios.get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + ingredient);
+        const resp = await axios.get("https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + id);
         const data = await resp.data.drinks;
         setData(data);
         setLoading(false);
     }
 
-    const onItemPress = ( item ) => {
-        console.log(item);
-        localStorage.setItem("id", item);
-        navigation.navigate('Fourth')
-    }
+    // const ingredients = (item) => {
+    //     for(let i = 1; i <= 15; i++) {
+    //         str = "strIngredient" + i.toString();
+    //         if(item.str != null)
+    //             console.log(item.str)
+
+    // }
 
     const renderItem = ({ item }) => {
         return (
-            <TouchableOpacity 
-                style={styles.items} 
-                onPress={() => onItemPress(item.idDrink) }>
+            <TouchableOpacity
+                style={styles.items}>
                 <Text>{item.strDrink}</Text>
+                <Text>{item.strCategory}</Text>
+                <Text>{item.strAlcoholic}</Text>
+                <Text>{item.strInstructions}</Text>
                 <View>
                     <Image
                         style={styles.tinyLogo}
@@ -39,20 +43,20 @@ export default function ThirdPage({navigation}) {
                             uri: item.strDrinkThumb,
                         }}/>
                 </View>
+                <Text>{item.strIngredient1}</Text>
             </TouchableOpacity>
-        );
-    };
+        )
+    }
 
     useEffect(() => {
         fetchData();
     }, []);
 
-    
 
     return (
         <NativeBaseProvider>
             <Center flex={1}>
-                <Box> Fetch drinks API</Box>
+                <Box> Fetch drink API</Box>
                 {loading && <Box>Loading..</Box>}
                 {data && (
                     <FlatList
@@ -64,4 +68,4 @@ export default function ThirdPage({navigation}) {
             </Center>
         </NativeBaseProvider>
     )
-} 
+}

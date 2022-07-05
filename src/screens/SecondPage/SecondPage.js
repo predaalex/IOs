@@ -1,32 +1,53 @@
-import styles from './styles'
-import { Keyboard, Text, TextInput, View } from 'react-native'
-import React, { useState } from "react";
-import { Box, FlatList, Center, NativeBaseProvider, Button } from "native-base";
-import IngredientsAutonomous from "./IngredientsAutonomous"
+import React, { useState, useEffect } from "react";
+import { Box, FlatList, Center, NativeBaseProvider, Text } from "native-base";
+import { Image, TextInput, TouchableOpacity, View } from 'react-native'
+import axios from 'axios'
+import { Button } from 'react-native'
+import styles from './styles';
 
 export default function SecondPage({navigation}) {
-    
-    // counter
-    let [count, setCount] = useState(0);
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    function incrementCount() {
-        count = count + 1;
-        setCount(count);
+    const fetchData = async () => {
+        const resp = await axios.get("https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list");
+        const data = await resp.data.drinks;
+        setData(data);
+        setLoading(false);
+    };
+
+    const onIngredientPress = ( item ) => {
+        console.log(item);
+        localStorage.setItem("ingredient", item);
+        navigation.navigate('Third')
     }
-    function decrementCount() {
-        count = count - 1;
-        setCount(count);
-    }
+
+    const renderItem = ({ item }) => {
+        return (
+            <TouchableOpacity 
+                onPress={() => onIngredientPress(item.strIngredient1)}>
+                <Text style={styles.items}>{item.strIngredient1}</Text>
+            </TouchableOpacity>
+        );
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
-        <>
-        <View style={styles.counter}>
-            <Text>Numarul de ingrediente</Text>
-            <div>{count}</div>
-            <button onClick={incrementCount}>+</button>
-            <button onClick={decrementCount}>-</button>
-        </View>
-        <IngredientsAutonomous/>;
-        </>
+        <NativeBaseProvider>
+            <Center flex={1}>
+                <Box> Fetch ingredients API</Box>
+                {loading && <Box>Loading..</Box>}
+                {data && (
+                    <FlatList
+                        data={data}
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item.strIngredient1}
+                    />
+                )}
+            </Center>
+        </NativeBaseProvider>
     )
 }

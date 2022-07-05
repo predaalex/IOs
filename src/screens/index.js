@@ -7,3 +7,5 @@ export { default as RegistrationScreen } from './RegistrationScreen/Registration
 export { default as SecondPage } from './SecondPage/SecondPage'
 
 export { default as ThirdPage } from './ThirdPage/ThirdPage'
+
+export { default as FourthPage } from './FourthPage/FourthPage'
