@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "624694679100",
+    "project_id": "drink-app-e080f",
+    "storage_bucket": "drink-app-e080f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624694679100:android:5488705498f4d12bf99539",
+        "android_client_info": {
+          "package_name": "com.reactnativefirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "624694679100-olfsracp84sl2m1dsbl26c24ad9s9tv6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuc4zjPF0JS0n7BJsv8gvrBIrtIIhG1kY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "624694679100-olfsracp84sl2m1dsbl26c24ad9s9tv6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "624694679100-pgkpa192lmun9aeiludivcdgnu05leei.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.reactnativefirebase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
