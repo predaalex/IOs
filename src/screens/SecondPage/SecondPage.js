@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Box, FlatList, Center, NativeBaseProvider, Button } from "native-base";
 import IngredientsAutonomous from "./IngredientsAutonomous"
 
-export default function SecondPage(navigation) {
+export default function SecondPage({navigation}) {
     
     // counter
     let [count, setCount] = useState(0);
@@ -18,9 +18,6 @@ export default function SecondPage(navigation) {
         setCount(count);
     }
 
-
-
-    
     return (
         <>
         <View style={styles.counter}>
