@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, FlatList, Center, NativeBaseProvider, Text } from "native-base";
 import { Image, TextInput, TouchableOpacity, View } from 'react-native'
+import {Chip} from 'react-native-paper'
 import axios from 'axios'
 import { Button } from 'react-native'
 import styles from './styles';
@@ -24,10 +25,17 @@ export default function SecondPage({navigation}) {
 
     const renderItem = ({ item }) => {
         return (
-            <TouchableOpacity 
-                onPress={() => onIngredientPress(item.strIngredient1)}>
-                <Text style={styles.items}>{item.strIngredient1}</Text>
-            </TouchableOpacity>
+            // <TouchableOpacity 
+            //     onPress={() => onIngredientPress(item.strIngredient1)}>
+            //     <Text style={styles.items}>{item.strIngredient1}</Text>
+            // </TouchableOpacity>
+            <Chip
+              mode="outlined"
+              onPress = {() => onIngredientPress(item.strIngredient1)}
+              style={styles.chip}
+              >
+              <Text>{item.strIngredient1}</Text>
+            </Chip>
         );
     };
 

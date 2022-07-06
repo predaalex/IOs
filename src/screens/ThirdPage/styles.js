@@ -3,17 +3,14 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     items: {
-        backgroundColor: '#788eec',
+        backgroundColor: '#6ab3c7',
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
         height: 130,
         borderRadius: 5,
-        alignItems: 'center'
-    },
-
-    tinyLogo: {
-        width: 100,
-        height: 100,
-      }
+        alignItems: 'center',
+        shadow: true,
+        fontFamily: 'Finlandica',
+    }
 })

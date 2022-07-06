@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, FlatList, Center, NativeBaseProvider, Text } from "native-base";
-import { Image, TextInput, TouchableOpacity, View } from 'react-native'
+import {  TouchableOpacity  } from 'react-native'
+import { Card, TouchableRipple  } from 'react-native-paper'
 import axios from 'axios'
 import { Button } from 'react-native'
 import styles from './styles';
@@ -28,19 +29,17 @@ export default function ThirdPage({navigation}) {
 
     const renderItem = ({ item }) => {
         return (
-            <TouchableOpacity 
-                style={styles.items} 
-                onPress={() => onItemPress(item.idDrink) }>
-                <Text>{item.strDrink}</Text>
-                <View>
-                    <Image
-                        style={styles.tinyLogo}
-                        source={{
-                            uri: item.strDrinkThumb,
-                        }}/>
-                </View>
-            </TouchableOpacity>
+            <TouchableOpacity>
+                <Card onPress={() => onItemPress(item.idDrink) }>
+                    <Card.Cover source={{
+                        uri: item.strDrinkThumb
+                        }} />
+                    <Card.Title
+                    title={item.strDrink}/>
+                </Card>
+             </TouchableOpacity>
         );
+
     };
 
     useEffect(() => {
