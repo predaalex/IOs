@@ -21,6 +21,15 @@ export default StyleSheet.create({
     },
 
     text: {
-      margin: 6  
-  }
+      margin: 6
+    },
+
+    title: {
+      alignSelf: 'center',
+      fontSize: 23
+    },
+
+    tot: {
+      paddingTop:25
+    }
 })

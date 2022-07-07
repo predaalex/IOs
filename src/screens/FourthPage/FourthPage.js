@@ -23,22 +23,13 @@ export default function FourthPage({navigation}) {
         setLoading(false);
     }
 
-    tableHead: ['Ingredient', 'Measurement'];
-    tableData: [
-        ['1', '2', '3', '4'],
-        ['a', 'b', 'c', 'd'],
-        ['1', '2', '3', '456\n789'],
-        ['a', 'b', 'c', 'd']
-    ];
-    const renderItem = ({ item }, tableHead, tableData) => {
+
+    const renderItem = ({ item }) => {
         return (
             <>
-            <TouchableOpacity
+           <TouchableOpacity
                 style={styles.items}>
-                <Text>{item.strDrink}</Text>
-                <Text>{item.strCategory}</Text>
-                <Text>{item.strAlcoholic}</Text>
-                <Text>{'Instructions:'} {item.strInstructions}</Text>
+                <Text style={styles.title}>{item.strDrink}</Text>
                 <View>
                     <Image
                         style={styles.tinyLogo}
@@ -46,7 +37,10 @@ export default function FourthPage({navigation}) {
                             uri: item.strDrinkThumb,
                         }}/>
                 </View>
-                <Text>{'Ingredient list'}</Text>
+                <Text>{item.strCategory}</Text>
+                <Text>{item.strAlcoholic}</Text>
+                <Text>{'Instructions:'} {item.strInstructions}</Text>
+                <Text>{'Ingredient list:'}</Text>
                 <Text>{item.strIngredient1}  {item.strMeasure1}</Text>
                 <Text>{item.strIngredient2}  {item.strMeasure2}</Text>
                 <Text>{item.strIngredient3}  {item.strMeasure3}</Text>
@@ -63,12 +57,6 @@ export default function FourthPage({navigation}) {
                 <Text>{item.strIngredient14}  {item.strMeasure14}</Text>
                 <Text>{item.strIngredient15}  {item.strMeasure15}</Text>
             </TouchableOpacity>
-            {/* <View style={styles.container}>
-                <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
-                    <Row data={tableHead} style={styles.head} textStyle={styles.text}/>
-                    <Rows data={tableData} textStyle={styles.text}/>
-                </Table>
-            </View> */}
 
             </>
         )
@@ -81,8 +69,7 @@ export default function FourthPage({navigation}) {
 
     return (
         <NativeBaseProvider>
-            <Center flex={1}>
-                <Box> Fetch drink API</Box>
+            <Center flex={1} style={styles.tot}>
                 {loading && <Box>Loading..</Box>}
                 {data && (
                     <FlatList

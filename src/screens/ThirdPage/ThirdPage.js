@@ -5,10 +5,20 @@ import { Card, TouchableRipple  } from 'react-native-paper'
 import axios from 'axios'
 import { Button } from 'react-native'
 import styles from './styles';
+import 'localstorage-polyfill'
+
+import * as SQLite from 'expo-sqlite'
+
+const db = SQLite.openDatabase('db.textDb')
 
 export default function ThirdPage({navigation}) {
 
     const ingredient = localStorage.getItem("ingredient")
+    // const userName = localStorage.getItem("userName");
+    // const userEmail = localStorage.getItem("userEmail");
+    const userName = "Zamfi2"
+    const userEmail = "Z@mfi2.com"
+
     console.log("ingredientul jmk este: " + ingredient);
     
     const [data, setData] = useState([]);
@@ -21,16 +31,37 @@ export default function ThirdPage({navigation}) {
         setLoading(false);
     }
 
-    const onItemPress = ( item ) => {
-        console.log(item);
-        localStorage.setItem("id", item);
+    const addCategory = (idDrink) => {
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + idDrink)
+        db.transaction(txn => {
+          txn.executeSql(
+            `INSERT INTO categories VALUES (${idDrink},"${userName}","${userEmail}")`,
+            [],
+            (sqlTxn, res) => {
+                console.log(`${userName} category added successfully`);
+            },
+            error => {
+                console.log("error on adding category " + error.message);
+            },
+          );
+        })
+        console.log("+++++++++++++++++++++++")
+      };
+
+    const onItemPress = async ( idDrink ) => {
+
+        await addCategory(idDrink);
+
+        console.log(idDrink);
+        localStorage.setItem("id", idDrink);
         navigation.navigate('Fourth')
     }
 
     const renderItem = ({ item }) => {
         return (
             <TouchableOpacity>
-                <Card onPress={() => onItemPress(item.idDrink) }>
+                <Card onPress={() => onItemPress(item.idDrink) }
+                style={styles.card}>
                     <Card.Cover source={{
                         uri: item.strDrinkThumb
                         }} />
@@ -39,28 +70,27 @@ export default function ThirdPage({navigation}) {
                 </Card>
              </TouchableOpacity>
         );
-
+// voiam sa fac un backup dar merg pe incredere :D
     };
 
     useEffect(() => {
         fetchData();
     }, []);
 
-    
+
 
     return (
         <NativeBaseProvider>
             <Center flex={1}>
-                <Box> Fetch drinks API</Box>
                 {loading && <Box>Loading..</Box>}
                 {data && (
                     <FlatList
                         data={data}
                         renderItem={renderItem}
-                        keyExtractor={(item) => item.idDrink} 
+                        keyExtractor={(item) => item.idDrink}
                     />
                 )}
             </Center>
         </NativeBaseProvider>
     )
-} 
+}

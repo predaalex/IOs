@@ -46,7 +46,7 @@ export default function SecondPage({navigation}) {
     return (
         <NativeBaseProvider>
             <Center flex={1}>
-                <Box> Fetch ingredients API</Box>
+                <Text style={styles.box}> Choose ingredient</Text>
                 {loading && <Box>Loading..</Box>}
                 {data && (
                     <FlatList

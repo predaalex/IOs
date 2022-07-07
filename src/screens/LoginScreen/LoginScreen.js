@@ -3,6 +3,8 @@ import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { firebase } from '../../firebase/config'
 import styles from './styles';
+import Lottie from 'react-lottie';
+import animationData from "../../../assets/animatie_cocktail.json";
 
 export default function LoginScreen({navigation}) {
 
@@ -44,15 +46,26 @@ export default function LoginScreen({navigation}) {
             })
     }
 
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+        rendererSettings: {
+          preserveAspectRatio: "xMidYMid slice"
+        }
+      };
+
     return (
         <View style={styles.container}>
             <KeyboardAwareScrollView
                 style={{ flex: 1, width: '100%' }}
                 keyboardShouldPersistTaps="always">
-                <Image
-                    style={styles.logo}
-                    source={require('../../../assets/cocktail-575631_640.png')}
-                />
+                <View>
+                    <Lottie 
+                        options={defaultOptions}
+                        height={150}
+                        width={150}/>
+                </View>
                 <TextInput
                     style={styles.input}
                     placeholder='E-mail'

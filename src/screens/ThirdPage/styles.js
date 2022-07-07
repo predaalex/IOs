@@ -12,5 +12,10 @@ export default StyleSheet.create({
         alignItems: 'center',
         shadow: true,
         fontFamily: 'Finlandica',
+    },
+    card: {
+        width:200,
+        height: 240,
+        marginBottom: 10
     }
 })

@@ -1,6 +1,5 @@
 import { CurrentRenderContext } from '@react-navigation/native';
-import { StyleSheet } from 'react-native';
-import { block } from 'react-native-reanimated';
+import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
     items: {
@@ -13,5 +12,10 @@ export default StyleSheet.create({
         borderRadius: 5,
         textAlign: 'center',
         alignItems: 'center'
+    },
+    box: {
+        marginTop: 20,
+        fontSize: 20,
+        marginBottom: 20
     }
 })
