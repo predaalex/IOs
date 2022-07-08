@@ -14,10 +14,9 @@ const db = SQLite.openDatabase('db.textDb')
 export default function ThirdPage({navigation}) {
 
     const ingredient = localStorage.getItem("ingredient")
-    // const userName = localStorage.getItem("userName");
-    // const userEmail = localStorage.getItem("userEmail");
-    const userName = "Zamfi2"
-    const userEmail = "Z@mfi2.com"
+    const userName = localStorage.getItem("userName");
+    const userEmail = localStorage.getItem("userEmail");
+
 
     console.log("ingredientul jmk este: " + ingredient);
     
@@ -45,7 +44,6 @@ export default function ThirdPage({navigation}) {
             },
           );
         })
-        console.log("+++++++++++++++++++++++")
       };
 
     const onItemPress = async ( idDrink ) => {
@@ -70,7 +68,6 @@ export default function ThirdPage({navigation}) {
                 </Card>
              </TouchableOpacity>
         );
-// voiam sa fac un backup dar merg pe incredere :D
     };
 
     useEffect(() => {

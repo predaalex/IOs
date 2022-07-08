@@ -12,13 +12,11 @@ import axios from 'axios'
 const db = SQLite.openDatabase('db.textDb')
 
 export default function HomeScreen({navigation}) {
-    // const userName = localStorage.getItem("userName");
-    // const userEmail = localStorage.getItem("userEmail");
-    const userName = "Zamfi"
-    const userEmail = "Z@mfi.com"
+    const userName = localStorage.getItem("userName");
+    const userEmail = localStorage.getItem("userEmail");
+
     const idDrink = 11007
-    console.log("_____________________________");
-    // console.log(userName + " " + userEmail);
+    console.log(userName + " " + userEmail);
 
     const onFABPress = () => {
         navigation.navigate('Second')
