@@ -14,9 +14,9 @@ const db = SQLite.openDatabase('db.textDb')
 export default function HomeScreen({navigation}) {
     const userName = localStorage.getItem("userName");
     const userEmail = localStorage.getItem("userEmail");
-
+    console.log(userEmail + " " + userName)
     const idDrink = 11007
-    console.log(userName + " " + userEmail);
+    console.log("_____________________________");
 
     const onFABPress = () => {
         navigation.navigate('Second')
@@ -74,7 +74,7 @@ export default function HomeScreen({navigation}) {
   const getCategories = () => {
     db.transaction(txn => {
       txn.executeSql(
-        `SELECT * FROM categories`,
+        `SELECT * FROM categories WHERE email = "${userEmail}";`,
         [],
         (sqlTxn, res) => {
           console.log("categories retrieved successfully");
@@ -163,7 +163,7 @@ export default function HomeScreen({navigation}) {
     }
 
     useEffect(() => {
-        fetchData();
+      fetchData();
     }, [categories]);
 
   return (

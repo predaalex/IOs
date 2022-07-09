@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useState, useRef } from 'react'
+import { Image, Text, TextInput, TouchableOpacity, View, Alert} from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { firebase } from '../../firebase/config';
 import styles from './styles';
-import animationData from "../../../assets/animatie_cocktail.json";
-import Lottie from 'react-lottie';
+import animationData from "../../../assets/animated_cocktail.json";
+import LottieView from 'lottie-react-native';
+
+import axios from "axios";
+
+const api_key = "AIzaSyCajM9YfO0A5xf3wCz3zHSFj-Vy80djE4w";
+const url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp" + "?key=" + api_key;
 
 export default function RegistrationScreen({navigation}) {
     const [fullName, setFullName] = useState('')
@@ -16,56 +21,71 @@ export default function RegistrationScreen({navigation}) {
         navigation.navigate('Login')
     }
 
-    const onRegisterPress = () => {
+    const onRegisterPress = async () => {
         if (password !== confirmPassword) {
             alert("Passwords don't match.")
             return
         }
-        firebase
-            .auth()
-            .createUserWithEmailAndPassword(email, password)
-            .then((response) => {
-                const uid = response.user.uid
-                const data = {
-                    id: uid,
-                    email,
-                    fullName,
-                };
-                const usersRef = firebase.firestore().collection('users')
-                usersRef
-                    .doc(uid)
-                    .set(data)
-                    .then(() => {
-                        navigation.navigate('Login')
-                    })
-                    .catch((error) => {
-                        alert(error)
-                    });
-            })
-            .catch((error) => {
-                alert(error)
-        });
-    }
-    const defaultOptions = {
-        loop: true,
-        autoplay: true,
-        animationData: animationData,
-        rendererSettings: {
-          preserveAspectRatio: "xMidYMid slice"
-        }
-      };
+        try {
+            console.log(url)
+            const response = await axios.post(url,
+                {
+                  email:email,
+                  password: password,
+                }).then(console.log(response));
 
+            localStorage.setItem("userName", "");
+            localStorage.setItem("userEmail", email);
+            navigation.navigate('Home');
+
+        } catch (msg) {
+            console.log(msg);
+            Alert.alert("Eroare", "Eroare creare cont, verficati datele!");
+        }
+        // firebase
+        //     .auth()
+        //     .createUserWithEmailAndPassword(email, password)
+        //     .then((response) => {
+        //         const uid = response.user.uid
+        //         const data = {
+        //             id: uid,
+        //             email,
+        //             fullName,
+        //         };
+        //         const usersRef = firebase.firestore().collection('users')
+        //         usersRef
+        //             .doc(uid)
+        //             .set(data)
+        //             .then(() => {
+        //                 navigation.navigate('Login')
+        //             })
+        //             .catch((error) => {
+        //                 alert(error)
+        //             });
+        //     })
+        //     .catch((error) => {
+        //         alert(error)
+        // });
+    }
+
+    const animation = useRef(null);
     return (
         <View style={styles.container}>
             <KeyboardAwareScrollView
                 style={{ flex: 1, width: '100%' }}
                 keyboardShouldPersistTaps="always">
-                <View>
-                    <Lottie 
-                        options={defaultOptions}
-                        height={150}
-                        width={150}/>
+                <View style={{alignItems:'center'}}>
+                    <LottieView
+                        autoPlay
+                        ref={animation}
+                        style={{
+                        width: 200,
+                        height: 200,
+                        }}
+                        source={animationData}
+                    />
                 </View>
+
                 <TextInput
                     style={styles.input}
                     placeholder='Full Name'

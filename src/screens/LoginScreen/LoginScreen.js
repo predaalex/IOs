@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useState, useRef } from 'react'
+import { Image, Text, TextInput, TouchableOpacity, View, Alert, Animated} from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { firebase } from '../../firebase/config'
 import styles from './styles';
-import Lottie from 'react-lottie';
-import animationData from "../../../assets/animatie_cocktail.json";
+import animationData from "../../../assets/animated_cocktail.json";
+import LottieView from 'lottie-react-native';
+
+import axios from "axios";
 
 export default function LoginScreen({navigation}) {
 
@@ -15,56 +17,46 @@ export default function LoginScreen({navigation}) {
         navigation.navigate('Registration')
     }
 
-    const onLoginPress = () => {
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(email, password)
-            .then((response) => {
-                const uid = response.user.uid
-                const usersRef = firebase.firestore().collection('users')
-                usersRef
-                    .doc(uid)
-                    .get()
-                    .then(firestoreDocument => {
-                        if (!firestoreDocument.exists) {
-                            alert("User does not exist anymore.")
-                            return;
-                        }
-                        const user = firestoreDocument.data()
-                        
-                        localStorage.setItem("userName", user.fullName);
-                        localStorage.setItem("userEmail", user.email);
+    const onLoginPress = async () => {
+        const api_key = "AIzaSyCajM9YfO0A5xf3wCz3zHSFj-Vy80djE4w";
+        const url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword" + "?key=" + api_key;
+        console.log(url);
+        try {
+            const response = await axios.post(url,
+                {
+                email:email,
+                password: password,
+                });
+            console.log(response)
+            localStorage.setItem("userName", "");
+            localStorage.setItem("userEmail", email);
 
-                        navigation.navigate('Home');
-                    })
-                    .catch(error => {
-                        alert(error)
-                    });
-            })
-            .catch(error => {
-                alert(error)
-            })
+            navigation.navigate('Home');
+        }
+        catch (msg) {
+            console.log(msg)
+            Alert.alert("Eroare", "Verificati credentialele!")
+        }
     }
 
-    const defaultOptions = {
-        loop: true,
-        autoplay: true,
-        animationData: animationData,
-        rendererSettings: {
-          preserveAspectRatio: "xMidYMid slice"
-        }
-      };
+
+      const animation = useRef(null);
 
     return (
         <View style={styles.container}>
             <KeyboardAwareScrollView
                 style={{ flex: 1, width: '100%' }}
                 keyboardShouldPersistTaps="always">
-                <View>
-                    <Lottie 
-                        options={defaultOptions}
-                        height={150}
-                        width={150}/>
+                <View style={{alignItems:'center'}}>
+                    <LottieView
+                        autoPlay
+                        ref={animation}
+                        style={{
+                        width: 200,
+                        height: 200,
+                        }}
+                        source={animationData}
+                    />
                 </View>
                 <TextInput
                     style={styles.input}

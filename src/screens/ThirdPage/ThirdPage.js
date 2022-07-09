@@ -17,6 +17,8 @@ export default function ThirdPage({navigation}) {
     const userName = localStorage.getItem("userName");
     const userEmail = localStorage.getItem("userEmail");
 
+    console.log("SDadasdadasdaDASDASDASDAS")
+    console.log(userEmail)
 
     console.log("ingredientul jmk este: " + ingredient);
     
@@ -34,7 +36,7 @@ export default function ThirdPage({navigation}) {
         console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + idDrink)
         db.transaction(txn => {
           txn.executeSql(
-            `INSERT INTO categories VALUES (${idDrink},"${userName}","${userEmail}")`,
+            `INSERT INTO categories VALUES (${idDrink},"${userEmail}", "${userName}")`,
             [],
             (sqlTxn, res) => {
                 console.log(`${userName} category added successfully`);
@@ -44,6 +46,7 @@ export default function ThirdPage({navigation}) {
             },
           );
         })
+        console.log("+++++++++++++++++++++++")
       };
 
     const onItemPress = async ( idDrink ) => {
@@ -68,6 +71,7 @@ export default function ThirdPage({navigation}) {
                 </Card>
              </TouchableOpacity>
         );
+// voiam sa fac un backup dar merg pe incredere :D
     };
 
     useEffect(() => {
